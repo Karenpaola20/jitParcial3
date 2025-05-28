@@ -1,0 +1,97 @@
+<app-header
+  [title]="'CallJit'"
+  [showLogo]="true"
+  [showAddContact]="true"
+  [showSettings]="true"
+  [showLogout]="true"
+  (onAddContact)="goToAddContact()"
+  (onSettings)="goToSettings()"
+  (onLogout)="logout()">
+</app-header>
+<ion-button [routerLink]="['profile']">
+  <ion-icon name="person-circle-outline"></ion-icon>
+</ion-button>
+
+<ion-content>
+  <div class="welcome-header fade-in">
+    <h2>Hola, {{ userName }}</h2>
+    <p>Bienvenido a tu lista de contactos</p>
+  </div>
+
+  <div class="tabs-container">
+    <ion-segment [(ngModel)]="selectedTab" (ionChange)="segmentChanged($event)" mode="ios">
+      <ion-segment-button value="contacts">
+        <ion-label>Contactos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="recent">
+        <ion-label>Recientes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div class="search-bar fade-in" *ngIf="selectedTab === 'contacts'">
+    <ion-searchbar placeholder="Buscar contactos" [(ngModel)]="searchTerm" (ionChange)="filterContacts()" animated></ion-searchbar>
+  </div>
+
+  <div class="content-container" [ngClass]="{'hidden': selectedTab !== 'contacts'}">
+    <ng-container *ngIf="filteredContacts.length > 0; else noContacts">
+      <div class="contacts-header">
+        <h3>Mis Contactos</h3>
+        <p>{{ filteredContacts.length }} contacto(s)</p>
+      </div>
+
+      <ion-list lines="none" class="contacts-list">
+        <app-contact-card
+          *ngFor="let contact of filteredContacts"
+          [contact]="contact"
+          [isOnline]="isContactOnline(contact)"
+          (callContact)="onCall($event)"
+          (viewProfile)="viewContactProfile($event)">
+        </app-contact-card>
+      </ion-list>
+    </ng-container>
+
+    <ng-template #noContacts>
+      <app-empty-state
+        icon="people-outline"
+        title="No tienes contactos aún"
+        message="Agrega contactos para empezar a realizar llamadas"
+        [showButton]="true"
+        buttonText="Agregar contacto"
+        buttonIcon="person-add-outline">
+      </app-empty-state>
+    </ng-template>
+  </div>
+
+  <div class="content-container" [ngClass]="{'hidden': selectedTab !== 'recent'}">
+    <ng-container *ngIf="recentCalls.length > 0; else noRecentCalls">
+      <div class="contacts-header">
+        <h3>Llamadas Recientes</h3>
+        <p>{{ recentCalls.length }} llamada(s)</p>
+      </div>
+
+      <ion-list lines="none" class="calls-list">
+        <app-call-history-item
+          *ngFor="let call of recentCalls"
+          [call]="call">
+        </app-call-history-item>
+      </ion-list>
+    </ng-container>
+
+    <ng-template #noRecentCalls>
+      <app-empty-state
+        icon="call-outline"
+        title="No hay llamadas recientes"
+        message="Tus llamadas recientes aparecerán aquí">
+      </app-empty-state>
+    </ng-template>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="fab-button">
+    <ion-fab-button (click)="goToAddContact()">
+      <ion-icon name="person-add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+
+<ion-loading [isOpen]="isLoading" message="Iniciando llamada..."></ion-loading>

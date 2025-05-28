@@ -1,0 +1,67 @@
+.incoming-call-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  padding: 40px 20px;
+  background: white;
+  color: var(--ion-text-color);
+}
+
+.caller-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .avatar {
+    margin-bottom: 20px;
+    animation: softPulse 2s infinite;
+  }
+
+  h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--ion-color-medium);
+    margin: 0;
+  }
+}
+
+.call-timer {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--ion-color-medium);
+}
+
+.call-actions {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+.large-avatar {
+  width: 120px !important;
+  height: 120px !important;
+  font-size: 48px !important;
+}
+
+@keyframes softPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

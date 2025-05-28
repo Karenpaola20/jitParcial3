@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Chat</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list lines="none">
+    <ion-item *ngFor="let msg of messages" [class.own-message]="msg.senderId === senderId">
+      <!-- Texto -->
+      <ion-label *ngIf="msg.type === 'text'">
+        {{ msg.content }}
+      </ion-label>
+
+      <!-- Imagen -->
+      <ion-label *ngIf="msg.type === 'image'">
+        <img [src]="msg.content" alt="Imagen" style="max-width: 100%; border-radius: 8px;" />
+      </ion-label>
+
+      <!-- Audio -->
+      <ion-label *ngIf="msg.type === 'audio'">
+        <audio controls [src]="msg.content" style="width: 100%;"></audio>
+      </ion-label>
+
+      <!-- Ubicación -->
+      <ion-label *ngIf="msg.type === 'location'">
+        <a [href]="msg.content" target="_blank">📍 Ver ubicación</a>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="selectAndSendImage()">📷</ion-button>
+      <ion-button (click)="sendLocation()">📍</ion-button>
+    </ion-buttons>
+
+    <ion-input [(ngModel)]="textToSend" placeholder="Escribe un mensaje" style="flex: 1;"></ion-input>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="sendMessage()">Enviar</ion-button>
+      <ion-button (click)="startRecording()">🎙</ion-button>
+      <ion-button (click)="stopRecording()">⏹</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

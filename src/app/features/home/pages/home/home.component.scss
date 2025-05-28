@@ -1,0 +1,82 @@
+.welcome-header {
+  background: white;
+  color: var(--ion-text-color);
+  padding: 30px 20px;
+  margin-bottom: 20px;
+  box-shadow: var(--app-box-shadow);
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+  }
+
+  p {
+    margin: 0;
+    color: var(--ion-color-medium);
+  }
+}
+
+.tabs-container {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.search-bar {
+  margin: 0 16px 16px 16px;
+
+  ion-searchbar {
+    --border-radius: 10px;
+    --box-shadow: var(--app-box-shadow);
+    --placeholder-color: var(--ion-color-medium);
+    --icon-color: var(--ion-color-medium);
+    --background: white;
+  }
+}
+
+.content-container {
+  padding: 0 16px 80px 16px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+
+  &.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+.contacts-header {
+  margin-bottom: 16px;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+    color: var(--ion-text-color);
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+.contacts-list, .calls-list {
+  background: transparent;
+  padding: 0;
+}
+
+.fab-button {
+  margin-bottom: 16px;
+  margin-right: 16px;
+
+  ion-fab-button {
+    --box-shadow: var(--app-box-shadow);
+    transition: var(--app-transition);
+
+    &:active {
+      --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
